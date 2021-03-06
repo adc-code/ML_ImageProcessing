@@ -39,7 +39,6 @@ elif sys.argv[1] == 'MERGE_RESULTS':
     Tasks = 2
 
 
-print ('Tasks: ', Tasks)
 possibleNumbers = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 possibleClassifiers = [ 1, 2, 3, 4 ]
 
@@ -71,9 +70,12 @@ if Tasks == 2 or Tasks == 3:
 
     os.system ('touch BinaryClassifier_TotalResults.csv')
     os.system ('rm BinaryClassifier_TotalResults.csv')
+   
+    heading = 'ClassiferType,Number,loadTime,trainTime,rocMetricTime,meanPredTime,numTruePos,numTrueNeg,numFalsePos,numFalseNeg,precision,recall,F1Score'
+    os.system (f'echo {heading} >> BinaryClassifier_TotalResults.csv')
+
     os.system ('touch BinaryClassifier_TotalROCCurvess.json')
     os.system ('rm BinaryClassifier_TotalROCCurvess.json')
-
     os.system ("echo '[' >> BinaryClassifier_TotalROCCurvess.json")
 
     for classifier in [ 'SGD', 'RandomForest', 'Logistic', 'KNeighbors' ]:
@@ -86,6 +88,10 @@ if Tasks == 2 or Tasks == 3:
 
             if i != len(possibleNumbers)-1:
                 os.system ("echo ', ' >> BinaryClassifier_TotalROCCurvess.json")
+
+        if classifier != 'KNeighbors':
+            os.system ("echo ', ' >> BinaryClassifier_TotalROCCurvess.json")
+
 
     os.system ("echo ']' >> BinaryClassifier_TotalROCCurvess.json")
 
