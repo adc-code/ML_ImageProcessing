@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <title> MNIST Roc Curves </title>
+
+        <script type="text/javascript" src="d3.v5.js"></script>
+        <script type="text/javascript" src="MNIST_ROC_Curve.js"></script>
+
+        <script type="text/javascript">
+
+            // Add a wide left margin so that the contents seem centered
+            function CenterContents ()
+            {
+                var leftMargin = (window.innerWidth - 650) / 2;
+                if (leftMargin > 0)
+                {
+                    var contents = document.getElementById ('contents');
+                    contents.style.marginLeft = leftMargin + 'px';
+                }
+            }
+
+            // Also re-center the contents when the page was resized...
+            window.addEventListener ('resize', CenterContents);
+
+            //
+            // eventWindowLoaded: used to be sure that everything has been loaded first 
+            // 
+            window.addEventListener ('load', eventWindowLoaded, false);     
+            function eventWindowLoaded ()
+            {
+                CenterContents ();
+                D3App ();
+            }
+
+        </script>
+
+
+        <style>
+
+            .button
+            {
+                background-color: #cccccc;
+                width:            140px;
+                padding:          4px;
+                margin:           2px;
+                margin-right:     0px;
+                cursor:           pointer;
+                font-family:      Helvetica, sans-serif;
+                font-size:        12px;
+                color:            #000000;
+                text-align:       center;
+                border-radius:    5px;
+                border-width:     thin;
+                border-style:     solid;
+                border-color:     #000000;
+            }
+
+            .topRounding
+            {
+                border-top-left-radius:  5px;
+                border-top-right-radius: 5px;
+                border-top-width:        thin;
+                border-top-color:        #000;
+                border-top-style:        solid;
+                border-left-width:       thin;
+                border-left-color:       #000;
+                border-left-style:       solid;
+                border-right-width:      thin;
+                border-right-color:      #000;
+                border-right-style:      solid;
+                margin-bottom:           0px;
+            }
+
+            .bottomRounding
+            {
+                border-bottom-left-radius:  5px;
+                border-bottom-right-radius: 5px;
+                border-bottom-width:        thin;
+                border-bottom-color:        #000;
+                border-bottom-style:        solid;
+                border-left-width:          thin;
+                border-left-color:          #000;
+                border-left-style:          solid;
+                border-right-width:         thin;
+                border-right-color:         #000;
+                border-right-style:         solid;
+                margin-top:                 0px;
+            }
+
+            .grid line
+            {
+                stroke:  lightgrey;
+                opacity: 0.7;
+            }
+
+            .grid path
+            {
+                stroke-width: 0;
+            }
+
+            .queryLine
+            {
+                color:            #333333;
+                stroke:           #333333;
+                stroke-dasharray: 2, 3;
+            }
+
+            .solutionLine
+            {
+                fill:         none;
+                stroke:       #dd0000;
+                stroke-width: 2;
+            }
+
+            .label
+            {
+                font-family: Helvetica, sans-serif;
+                font-size:   12px;
+            }
+
+            .table 
+            { 
+                display: table;
+                margin-left: 2px;
+            }
+
+            .row 
+            { 
+                /*display: table-row;*/
+            }
+
+            .cell 
+            {
+                display: table-cell;
+                padding: 9px;
+                padding-right: 10px;
+                padding-left: 10px;
+                font-family: Helvetica, sans-serif;
+                font-size:   12px;
+                background-color:  #ccc;
+                cursor:           pointer;
+                width:  9px;
+
+                /* Prevent text selection */
+                -webkit-user-select: none;  /* Safari */
+                -ms-user-select:     none;  /* IE 10+ and Edge */
+                user-select:         none;  /* Standard syntax */
+            }
+
+            .cell:hover
+            {
+               background-color:  orange;
+            }
+
+            .cellSel
+            {
+               background-color:  greenyellow;
+            }
+
+            .topLeftCell
+            {
+                border-top-left-radius:  5px;
+                border-top-width:        thin;
+                border-top-color:        #000;
+                border-top-style:        solid;
+                border-left-width:       thin;
+                border-left-color:       #000;
+                border-left-style:       solid;
+                margin-bottom:           0px;
+            }
+
+            .topCell
+            {
+                border-top-color: black;
+                border-top-width: thin;
+                border-top-style: solid;
+                margin-bottom:           0px;
+            }
+
+            .topRightCell
+            {
+                border-top-right-radius: 5px;
+                border-top-width:        thin;
+                border-top-color:        #000;
+                border-top-style:        solid;
+                border-right-width:      thin;
+                border-right-color:      #000;
+                border-right-style:      solid;
+                margin-bottom:           0px;
+            }
+
+            .bottomLeftCell
+            {
+                border-bottom-left-radius:  5px;
+                border-bottom-width:        thin;
+                border-bottom-color:        #000;
+                border-bottom-style:        solid;
+                border-left-width:          thin;
+                border-left-color:          #000;
+                border-left-style:          solid;
+                margin-top:                 0px;
+            }
+
+            .bottomCell
+            {
+                border-bottom-width:        thin;
+                border-bottom-color:        #000;
+                border-bottom-style:        solid;
+                margin-top:                 0px;
+            }
+
+            .bottomRightCell
+            {
+                border-bottom-right-radius: 5px;
+                border-bottom-width:        thin;
+                border-bottom-color:        #000;
+                border-bottom-style:        solid;
+                border-right-width:         thin;
+                border-right-color:         #000;
+                border-right-style:         solid;
+                margin-top:                 0px;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id='contents'>
+
+            <div id='controls' class='topRounding bottomRounding' style='float:left;background-color:#f2f2f2;padding:5px;margin-right:5px;margin-top:10px'>
+
+                <div class='table'>
+                    <div class='label' id='numLabel' style='padding-bottom:2px;padding-left:2px'>Number: </div>
+                    <div class='row'>
+                        <div class='cell topLeftCell cellSel' val='0'> 0 </div>
+                        <div class='cell topCell' val='1'> 1 </div>
+                        <div class='cell topCell' val='2'> 2 </div>
+                        <div class='cell topCell' val='3'> 3 </div>
+                        <div class='cell topRightCell' val='4'> 4 </div>
+                    </div>
+                    <div class='row'>
+                        <div class='cell bottomLeftCell' val='5'> 5 </div>
+                        <div class='cell bottomCell' val='6'> 6 </div>
+                        <div class='cell bottomCell' val='7'> 7 </div>
+                        <div class='cell bottomCell' val='8'> 8 </div>
+                        <div class='cell bottomRightCell' val='9'> 9 </div>
+                    </div>
+                </div>
+
+                <div style='height:2px'> </div>
+                <div class='button' id='SGDBtn' visId='0'> Stochastic Gradient Descent <hr> AUC: - </div>
+                <div style='height:2px'> </div>
+                <div class='button' id='RFBtn' visId='1'> Random Forest Classifier <hr> AUC: - </div>
+                <div style='height:2px'> </div>
+                <div class='button' id='LogBtn' visId='2'> Logistic Regression <hr> AUC: - </div>
+                <div style='height:2px'> </div>
+                <div class='button' id='KNBtn' visId='3'> K-Neightbours Classifier <hr> AUC: - </div>
+
+            </div>
+
+            <div style='float: left'>
+                <div id='graph'> </div>
+            </div>
+
+        </div> 
+
+    </body>
+
+</html>
+
+
