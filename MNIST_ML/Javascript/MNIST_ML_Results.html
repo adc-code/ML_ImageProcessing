@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <title> MNIST ML Results </title>
+
+        <script type="text/javascript" src="d3.v5.js"></script>
+        <script type="text/javascript" src="MNIST_ML_Results.js"></script>
+
+        <script type="text/javascript">
+
+            // Add a wide left margin so that the table seems centered
+            var CenterContents = function ()
+            {
+                var leftMargin = (window.innerWidth - 790) / 2;
+                d3.select ('#contents').style ('margin-left', leftMargin + 'px');
+            }
+
+            // Also re-center the table when the page was resized...
+            d3.select(window).on ('resize', function () { CenterContents (); } );
+
+            // eventWindowLoaded: used to be sure that everything has been loaded first 
+            window.addEventListener ('load', eventWindowLoaded, false);     
+            function eventWindowLoaded ()
+            {
+                CenterContents ();
+                D3App ();
+            } 
+
+        </script>
+
+        <style>
+
+            .button 
+            {
+                position:         relative;
+                text-align:       center;
+
+                vertical-align:   middle;
+
+                background-color: #cccccc;
+                border-radius:    7px;
+                border-style:     solid;
+                border-color:     #000;
+                border-width:     1px;
+                width:            160px; 
+                padding:          7px 4px; 
+                margin:           2px;
+                font-family:      Helvetica, sans-serif;
+                font-size:        12px;
+                color:            #000000;
+                cursor:           pointer;
+
+                /* Prevent text selection */
+                -webkit-user-select: none;  /* Safari */
+                -ms-user-select:     none;  /* IE 10+ and Edge */
+                user-select:         none;  /* Standard syntax */
+            }
+
+            .datatype:hover
+            {
+                background-color:  #660066;
+                color:             #ffffff;
+            }
+
+            .button_sel
+            {
+                background-color: #4d4d4d;
+                color:            #ffffff;
+            }
+
+            .textOutput
+            {
+                font-family:      Helvetica, sans-serif;
+                font-size:        12px;
+                color:            #000000;
+            }
+
+            #tooltip
+            {
+                position: absolute;
+                width: 120px;
+                height: auto;
+                padding: 5px;
+                background-color: rgba(255, 255, 255, 0.9);
+                -webkit-border-radius: 10px;
+                -moz-border-radius: 10px;
+                border-radius: 10px;
+                -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+                -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+                box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+                pointer-events: none;
+            }
+
+            #tooltip.hidden
+            {
+                display: none;
+            }
+
+            #tooltip p
+            {
+                margin:      0;
+                font-family: Helvetica, sans-serif;
+                font-size:   12px;
+                line-height: 14px;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id='contents'>
+
+            <div id='controls' style='float: left'>
+                <div id='btn_TP' style='margin-top:4px' class='button datatype button_sel' dataType='TP'> True Positives </div>
+                <div id='btn_TN' class='button datatype' dataType='TN'> True Negatives </div>
+                <div id='btn_FP' class='button datatype' dataType='FP'> False Positives </div>
+                <div id='btn_FN' class='button datatype' dataType='FN'> False Negatives </div>
+                <div style='height:5px;'> </div>
+                <div id='btn_P'   class='button datatype' dataType='P'> Precision </div>
+                <div id='btn_R'   class='button datatype' dataType='R'> Recall </div>
+                <div id='btn_F1'  class='button datatype' dataType='F1'> F1 Score </div>
+                <div style='height:5px;'> </div>
+                <div id='btn_SGD' class='button classType button_sel' classType='SGD'> Stochastic Gradient Descent </div>
+                <div id='btn_RF'  class='button classType' classType='RF'> Random Forest </div>
+                <div id='btn_LOG' class='button classType' classType='LOG'> Logistic Regression </div>
+                <div id='btn_KN'  class='button classType' classType='KN'> K-Neighbours </div>
+                <div style='height:7px;'> </div>
+                <div class='button' style='cursor: default;'> 
+                     <input type='checkbox' id='tooltipsCB' name='hideShowTooltips'>
+                     <label for='tooltipsCB'> Hide/Show Tooltips </label>
+                </div>
+            </div>
+
+            <div style='float: left;margin-top:10px'>
+                <div id='graph'> </div>
+            </div>
+
+        </div>
+
+        <div id='tooltip' class='hidden'>
+            <p><span id='label'>text...</span></p>
+        </div>
+
+    </body>
+
+</html>
+
+
