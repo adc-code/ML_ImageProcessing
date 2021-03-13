@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <title> MNIST ML Results </title>
+
+        <script type="text/javascript" src="d3.v5.js"></script>
+        <script type="text/javascript" src="MNIST_ML_DecisFuncResults.js"></script>
+
+        <script type="text/javascript">
+
+            // Add a wide left margin so that the table seems centered
+            var CenterContents = function ()
+            {
+                var leftMargin = (window.innerWidth - 780) / 2;
+                d3.select ('#contents').style ('margin-left', leftMargin + 'px');
+            }
+
+            // Also re-center the table when the page was resized...
+            d3.select(window).on ('resize', function () { CenterContents (); } );
+
+            // eventWindowLoaded: used to be sure that everything has been loaded first 
+            window.addEventListener ('load', eventWindowLoaded, false);     
+            function eventWindowLoaded ()
+            {
+                CenterContents ();
+                D3App ();
+            } 
+
+        </script>
+
+        <style>
+
+            .button 
+            {
+                position:         relative;
+                text-align:       center;
+
+                vertical-align:   middle;
+
+                background-color: #cccccc;
+                border-radius:    7px;
+                border-style:     solid;
+                border-color:     #000;
+                border-width:     1px;
+                width:            160px; 
+                padding:          7px 4px; 
+                margin:           2px;
+                font-family:      Helvetica, sans-serif;
+                font-size:        12px;
+                color:            #000000;
+                cursor:           pointer;
+
+                /* Prevent text selection */
+                -webkit-user-select: none;  /* Safari */
+                -ms-user-select:     none;  /* IE 10+ and Edge */
+                user-select:         none;  /* Standard syntax */
+            }
+
+            .topRounding
+            {
+                border-top-left-radius:  5px;
+                border-top-right-radius: 5px;
+                border-top-width:        thin;
+                border-top-color:        #000;
+                border-top-style:        solid;
+                border-left-width:       thin;
+                border-left-color:       #000;
+                border-left-style:       solid;
+                border-right-width:      thin;
+                border-right-color:      #000;
+                border-right-style:      solid;
+                margin-bottom:           0px;
+            }
+
+            .bottomRounding
+            {
+                border-bottom-left-radius:  5px;
+                border-bottom-right-radius: 5px;
+                border-bottom-width:        thin;
+                border-bottom-color:        #000;
+                border-bottom-style:        solid;
+                border-left-width:          thin;
+                border-left-color:          #000;
+                border-left-style:          solid;
+                border-right-width:         thin;
+                border-right-color:         #000;
+                border-right-style:         solid;
+                margin-top:                 0px;
+            } 
+
+            .datatype:hover
+            {
+                background-color:  #660066;
+                color:             #ffffff;
+            }
+
+            .button_sel
+            {
+                background-color: #4d4d4d;
+                color:            #ffffff;
+            }
+
+            .textOutput
+            {
+                font-family:      Helvetica, sans-serif;
+                font-size:        12px;
+                color:            #000000;
+            }
+
+            .imgBox
+            {
+                display:           table-cell;
+                padding:           3px;
+                padding-top:       4px;
+                padding-bottom:    2px;
+                font-family:       Helvetica, sans-serif;
+                font-size:         12px;
+                background-color:  #000;
+            }
+
+            .imgBox:hover
+            {
+                background-color:  orange;
+            }
+
+            .selImgBox
+            {
+                background-color:  greenyellow;
+            }
+
+            .range
+            {
+                border-radius:    7px;
+                border-style:     solid;
+                border-color:     #000;
+                border-width:     1px;
+                height:           25px; 
+                width:            173px; 
+                padding:          4px 4px; 
+                padding-top:      10px;
+                font-family:      Helvetica, sans-serif;
+                font-size:        12px;
+                color:            #000;
+                cursor:           pointer;
+            }
+
+            .imgTable
+            {
+                border-radius:    7px;
+                border-style:     solid;
+                border-color:     #000;
+                border-width:     1px;
+                width:            175px; 
+                padding:          4px 4px; 
+                padding-top:      10px;
+                font-family:      Helvetica, sans-serif;
+                font-size:        12px;
+                color:            #000;
+                background-color: #f2f2f2;
+                cursor:           pointer;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id='contents'>
+
+            <div id='controls' style='float: left; padding-top:5px; padding-right:10px'>
+
+                <div style='font-family:Helvetica, sans-serif;font-size:13px;padding-left:3px;padding-bottom:3px'> <b> Decision Function Results </b> </div>
+
+                <div class='range' style='background-color:#f2f2f2;padding:5px;padding-bottom:0px;margin-right:5px;margin-top:0px'>
+                    <div style='float:left;margin-left:0px;padding-top:3px'> <b> Case: </b> </div>
+                    <select id='caseList' name='caseList' style='width:130px;float:right'>
+                         <option value='0' selected> 1 &#x2799 Expected: 3; Predicted: 2 </option>
+                         <option value='1'> 2 &#x2799 Expected: 3; Predicted: 5</option>
+                         <option value='2'> 3 &#x2799 Expected: 4; Predicted: 9</option>
+                         <option value='3'> 4 &#x2799 Expected: 5; Predicted: 3</option>
+                         <option value='4'> 5 &#x2799 Expected: 5; Predicted: 8</option>
+                         <option value='5'> 6 &#x2799 Expected: 8; Predicted: 3</option>
+                         <option value='6'> 7 &#x2799 Expected: 8; Predicted: 5</option>
+                         <option value='7'> 8 &#x2799 Expected: 8; Predicted: 9</option>
+                         <option value='8'> 9 &#x2799 Expected: 9; Predicted: 7</option>
+                     </select>
+                </div>
+
+                <div style='height:10px;'> </div>
+
+                <div class='imgTable'>
+                    <div style='padding-bottom:3px'> <b>Correct Predictions:</b> </div>
+                    <div style='padding-bottom:3px' id='corrText'> <i>Expected 3... Predicted 3... </i> </div>
+                    <div>
+                        <div id='IB00' class='imgBox selImgBox' sel='0'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgOK_0'> </div>
+                        <div id='IB01' class='imgBox' sel='1'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgOK_1'> </div>
+                        <div id='IB02' class='imgBox' sel='2'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgOK_2'> </div>
+                        <div id='IB03' class='imgBox' sel='3'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgOK_3'> </div>
+                        <div id='IB04' class='imgBox' sel='4'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgOK_4'> </div>
+                    </div>
+                    <div>
+                        <div id='IB05' class='imgBox' sel='5'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgOK_5'> </div>
+                        <div id='IB06' class='imgBox' sel='6'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgOK_6'> </div>
+                        <div id='IB07' class='imgBox' sel='7'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgOK_7'> </div>
+                        <div id='IB08' class='imgBox' sel='8'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgOK_8'> </div>
+                        <div id='IB09' class='imgBox' sel='9'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgOK_9'> </div>
+                    </div>
+                </div>
+
+                <div style='height:10px;'> </div>
+
+                <div class='imgTable'>
+                    <div style='padding-bottom:3px'> <b>Incorrect Predictions:</b> </div>
+                    <div style='padding-bottom:3px' id='incorrText'> <i>Expected 3... Predicted 2... </i> </div>
+                    <div>
+                        <div id='IB10' class='imgBox' sel='10'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgKO_0'> </div>
+                        <div id='IB11' class='imgBox' sel='11'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgKO_1'> </div>
+                        <div id='IB12' class='imgBox' sel='12'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgKO_2'> </div>
+                        <div id='IB13' class='imgBox' sel='13'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgKO_3'> </div>
+                        <div id='IB14' class='imgBox' sel='14'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgKO_4'> </div>
+                    </div>
+                    <div>
+                        <div id='IB15' class='imgBox' sel='15'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgKO_5'> </div>
+                        <div id='IB16' class='imgBox' sel='16'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgKO_6'> </div>
+                        <div id='IB17' class='imgBox' sel='17'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgKO_7'> </div>
+                        <div id='IB18' class='imgBox' sel='18'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgKO_8'> </div>
+                        <div id='IB19' class='imgBox' sel='19'> <img src="FullClassifier_DecisionFuncResults/Case_0_3_2_OK_46295" id='imgKO_9'> </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style='float: left;margin-top:10px'>
+                <div id='graph'> </div>
+            </div>
+
+        </div>
+
+    </body>
+
+</html>
+
+
