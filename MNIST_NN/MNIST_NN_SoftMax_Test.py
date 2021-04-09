@@ -9,6 +9,9 @@
 #
 
 
+MODEL_FILE = 'MNIST_NN_SoftMax_Model_35.h5'
+
+
 # Load key packages...
 import sys
 import numpy as np
@@ -41,6 +44,9 @@ ImgFileName = sys.argv [1]
 # 
 def prepImage (img, imgSize):
 
+    # First convert the image to grayscale
+    img = img.convert ('L')
+
     # first convert it to a np array from a PIL image
     img = np.array (img)
 
@@ -60,15 +66,15 @@ def prepImage (img, imgSize):
 
 
 # Load an already trained model...
-model = keras.models.load_model ('MNIST_NN_SoftMax_Model_35.h5')
+model = keras.models.load_model (MODEL_FILE)
 
 
 # Uncomment for debugging... display the model's architecture
 # model.summary ()
 
 
-# load the image and prep it before it is used...
-img = Image.open (ImgFileName).convert ('L')
+# load the image and prep it before it is used.  
+img = Image.open (ImgFileName)
 img = prepImage (img, 28)
 
 
