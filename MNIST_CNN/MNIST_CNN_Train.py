@@ -12,9 +12,12 @@
 
 
 # Some key parameters used in the script...
-MODEL_OUTPUT_FILE = 'MNIST_CNN_Model_1.h5'
-MAX_EPOCHS        = 15
+MODEL_TYPE        = 3
+MODEL_OUTPUT_NAME = 'MNIST_CNN_Model_'
+MAX_EPOCHS        = 25
 BATCH_SIZE        = 128
+VALIDATION_SPLIT  = 0.1
+ES_MIN_DELTA      = 0.01
 
 # Model / data parameters
 NUM_CLASSES       = 10
@@ -93,29 +96,38 @@ def BuildModel (modelType):
     return model
 
 
-
-model = BuildModel (3)
-
+model = BuildModel (MODEL_TYPE)
 model.summary ()
 
 
+#
+# Do the fitting... and measure the time
+# 
 tic = time.perf_counter ()
 
-trainHistory = model.fit (x_train, y_train, batch_size=BATCH_SIZE, epochs=MAX_EPOCHS, validation_split=0.1)
+ESCallback = keras.callbacks.EarlyStopping(monitor='loss', min_delta=ES_MIN_DELTA, patience=3)
+trainHistory = model.fit (x_train, y_train, batch_size=BATCH_SIZE, epochs=MAX_EPOCHS, validation_split=VALIDATION_SPLIT, callbacks=[ESCallback])
 
 toc = time.perf_counter ()
 trainTime = toc - tic
-print (f'Time perform training...: {trainTime:0.4f} seconds\n\n')
+print (f'Time perform training...: {trainTime:0.4f} seconds')
+print (f"Actual number of epochs...: {len(trainHistory.history['loss'])}")
+print (f'\n\n')
 
 
+# evaluate with the test set...
 score = model.evaluate (x_test, y_test, verbose=0)
 print (f'Test loss: {score[0]}')
 print (f'Test accuracy: {score[1]}')
 
-print (f'Writing model out to: {MODEL_OUTPUT_FILE}\n\n')
-model.save (MODEL_OUTPUT_FILE)
+
+# Write out the model file to be used when predicting/inferring
+modelOutputFile = MODEL_OUTPUT_NAME + str(MODEL_TYPE) + '.h5'
+print (f'Writing model out to: {modelOutputFile}\n\n')
+model.save (modelOutputFile)
 
 
+# graph the training history...
 plt.figure ()
 plt.plot (trainHistory.history ['loss'], label='Training Loss')
 plt.plot (trainHistory.history ['val_loss'], label='Validation Loss')
