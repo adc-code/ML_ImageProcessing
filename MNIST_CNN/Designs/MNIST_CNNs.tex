@@ -1,0 +1,515 @@
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage[letterpaper,margin=0.5in]{geometry}
+\usepackage{nopageno}
+\usepackage{lscape}
+\usepackage{pstricks}
+\usepackage{pstricks-add}
+\usepackage{xcolor}
+
+
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{helvet}
+\usepackage{mathpazo}
+
+\definecolor{lightblue}{rgb}{0.8,0.9,1}
+\definecolor{lightred}{rgb}{1,0.8,0.8}
+
+\begin{document}
+
+%
+% ----  CNN 1  ---
+%
+\begin{center}
+\psset{unit=1in}
+\begin{pspicture}(0,0)(7,5)
+
+\psset{linewidth=0.5pt}
+
+% line between conv2d and max pooling layers
+\psline(1.6,1.75)(1.9,1.75)
+
+% conv2d layer
+\psframe[linewidth=1.5pt,fillstyle=solid,fillcolor=lightblue](1.375,0.50)(1.625,3.00)
+\psline(1.425,0.50)(1.425,3.00)
+\psline(1.475,0.50)(1.475,3.00)
+\psline(1.525,0.50)(1.525,3.00)
+\psline(1.575,0.50)(1.575,3.00)
+
+% lines from maxpooling layer to flatten layer
+\psline[linearc=0.2](2,1.75)(2.5,1.75)(2.5,2.95)(3,2.95)
+\psline[linearc=0.2](2,1.75)(2.5,1.75)(2.5,2.85)(3,2.85)
+\psline[linearc=0.2](2,1.75)(2.5,1.75)(2.5,2.75)(3,2.75)
+\psline[linearc=0.2](2,1.75)(2.5,1.75)(2.5,2.65)(3,2.65)
+\psline[linearc=0.2](2,1.75)(2.5,1.75)(2.5,2.55)(3,2.55)
+\psline[linearc=0.2](2,1.75)(2.5,1.75)(2.5,0.55)(3,0.55)
+
+% max pooling layer
+\psframe[linewidth=1.5pt,fillstyle=solid,fillcolor=lightblue](1.875,0.65)(2.125,2.85)
+
+% lines from flatten layer to hidden nn layer
+\psline(3,2.95)(4,3.00)
+\psline(3,2.95)(4,2.65)
+\psline(3,2.95)(4,2.30)
+\psline(3,2.95)(4,1.95)
+\psline(3,2.95)(4,0.50)
+
+\psline(3,2.85)(4,3.00)
+\psline(3,2.85)(4,2.65)
+\psline(3,2.85)(4,2.30)
+\psline(3,2.85)(4,1.95)
+\psline(3,2.85)(4,0.50)
+
+\psline(3,2.75)(4,3.00)
+\psline(3,2.75)(4,2.65)
+\psline(3,2.75)(4,2.30)
+\psline(3,2.75)(4,1.95)
+\psline(3,2.75)(4,0.50)
+
+\psline(3,2.65)(4,3.00)
+\psline(3,2.65)(4,2.65)
+\psline(3,2.65)(4,2.30)
+\psline(3,2.65)(4,1.95)
+\psline(3,2.65)(4,0.50)
+
+\psline(3,2.55)(4,3.00)
+\psline(3,2.55)(4,2.65)
+\psline(3,2.55)(4,2.30)
+\psline(3,2.55)(4,1.95)
+\psline(3,2.55)(4,0.50)
+
+\psline(3,0.55)(4,3.00)
+\psline(3,0.55)(4,2.65)
+\psline(3,0.55)(4,2.30)
+\psline(3,0.55)(4,1.95)
+\psline(3,0.55)(4,0.50)
+
+% flatten layer
+\psset{fillstyle=solid,fillcolor=lightblue,linewidth=1pt}
+\pscircle(3,2.95){4pt}
+\pscircle(3,2.85){4pt}
+\pscircle(3,2.75){4pt}
+\pscircle(3,2.65){4pt}
+\pscircle(3,2.55){4pt}
+\rput[c](3,2.29){\LARGE$\vdots$}
+\rput[c](3,2.18){\LARGE$\vdots$}
+\rput[c](3,2.07){\LARGE$\vdots$}
+\rput[c](3,1.96){\LARGE$\vdots$}
+\rput[c](3,1.85){\LARGE$\vdots$}
+\rput[c](3,1.74){\LARGE$\vdots$}
+\rput[c](3,1.63){\LARGE$\vdots$}
+\rput[c](3,1.52){\LARGE$\vdots$}
+\rput[c](3,1.41){\LARGE$\vdots$}
+\rput[c](3,1.30){\LARGE$\vdots$}
+\rput[c](3,1.19){\LARGE$\vdots$}
+\rput[c](3,1.08){\LARGE$\vdots$}
+\rput[c](3,0.97){\LARGE$\vdots$}
+\rput[c](3,0.86){\LARGE$\vdots$}
+\pscircle(3,0.55){4pt}
+
+% lines from hidden layer to output layer
+\psset{linewidth=0.5pt}
+\psline(4,3.00)(5,2.30)
+\psline(4,3.00)(5,1.95)
+\psline(4,3.00)(5,1.20)
+
+\psline(4,2.65)(5,2.30)
+\psline(4,2.65)(5,1.95)
+\psline(4,2.65)(5,1.20)
+
+\psline(4,2.30)(5,2.30)
+\psline(4,2.30)(5,1.95)
+\psline(4,2.30)(5,1.20)
+
+\psline(4,1.95)(5,2.30)
+\psline(4,1.95)(5,1.95)
+\psline(4,1.95)(5,1.20)
+
+\psline(4,0.5)(5,2.30)
+\psline(4,0.5)(5,1.95)
+\psline(4,0.5)(5,1.20)
+
+% hidden layer
+\psset{fillstyle=solid,fillcolor=lightblue,linewidth=1.5pt}
+\pscircle(4,3.00){10pt}
+\pscircle(4,2.65){10pt}
+\pscircle(4,2.30){10pt}
+\pscircle(4,1.95){10pt}
+\rput[c](4,1.63){\LARGE$\vdots$}
+\rput[c](4,1.52){\LARGE$\vdots$}
+\rput[c](4,1.41){\LARGE$\vdots$}
+\rput[c](4,1.30){\LARGE$\vdots$}
+\rput[c](4,1.19){\LARGE$\vdots$}
+\rput[c](4,1.08){\LARGE$\vdots$}
+\rput[c](4,0.97){\LARGE$\vdots$}
+\rput[c](4,0.86){\LARGE$\vdots$}
+\pscircle(4,0.50){10pt}
+
+% output layer
+\pscircle(5,2.30){10pt}
+\pscircle(5,1.95){10pt}
+\rput[c](5,1.60){\LARGE$\vdots$}
+\pscircle(5,1.20){10pt}
+
+\psset{linewidth=1pt}
+
+\psline{->}(1.0,1.75)(1.3,1.75)
+
+\rput[r](0.95,1.75){\small Image}
+
+\psline{->}(5.2,2.30)(5.5,2.30)
+\psline{->}(5.2,1.95)(5.5,1.95)
+\psline{->}(5.2,1.20)(5.5,1.20)
+
+\rput[l](5.54,2.30){\small Probability of 0}
+\rput[l](5.54,1.95){\small Probability of 1}
+\rput[l](5.54,1.20){\small Probability of 9}
+
+\psbrace(1.05,0)(2.45,0){}
+\psbrace(2.55,0)(3.45,0){}
+\psbrace(3.55,0)(4.45,0){}
+\psbrace(4.55,0)(5.45,0){}
+
+\rput(1.75,-0.4){\centering \parbox[t]{1.5in}{\centering 2D Convolution and\\ Max Pooling Layers}}
+\rput(3.0 ,-0.4){\centering \parbox[t]{1in}{\centering Flattening \\Layer}}
+\rput(4.0 ,-0.4){\centering \parbox[t]{1in}{\centering Hidden \\Layer}}
+\rput(5.0 ,-0.4){\centering \parbox[t]{1in}{\centering Output \\Layer}}
+
+\end{pspicture}
+\end{center}
+\newpage
+
+
+
+%
+% ----  CNN 2  ----
+%
+\begin{center}
+\psset{unit=1in}
+\begin{pspicture}(0,0)(7,5)
+
+\psset{linewidth=0.5pt}
+
+% line between conv2d and max pooling layers
+\psline(1.3,1.75)(1.9,1.75)
+
+% conv2d layer
+\psframe[linewidth=1.5pt,fillstyle=solid,fillcolor=lightblue](1.275,0.50)(1.525,3.00)
+\psline(1.325,0.50)(1.325,3.00)
+\psline(1.375,0.50)(1.375,3.00)
+\psline(1.425,0.50)(1.425,3.00)
+\psline(1.475,0.50)(1.475,3.00)
+
+% batch normalization layer
+\psframe[linewidth=1.5pt,fillstyle=solid,fillcolor=lightblue](1.625,0.50)(1.775,3.00)
+
+% lines from maxpooling layer to flatten layer
+\psline[linearc=0.2](2,1.75)(2.5,1.75)(2.5,2.95)(3,2.95)
+\psline[linearc=0.2](2,1.75)(2.5,1.75)(2.5,2.85)(3,2.85)
+\psline[linearc=0.2](2,1.75)(2.5,1.75)(2.5,2.75)(3,2.75)
+\psline[linearc=0.2](2,1.75)(2.5,1.75)(2.5,2.65)(3,2.65)
+\psline[linearc=0.2](2,1.75)(2.5,1.75)(2.5,2.55)(3,2.55)
+\psline[linearc=0.2](2,1.75)(2.5,1.75)(2.5,0.55)(3,0.55)
+
+% max pooling layer
+\psframe[linewidth=1.5pt,fillstyle=solid,fillcolor=lightblue](1.875,0.65)(2.125,2.85)
+
+
+% lines from flatten layer to hidden nn layer
+\psline(3,2.95)(4,3.00)
+\psline(3,2.95)(4,2.65)
+\psline(3,2.95)(4,2.30)
+\psline(3,2.95)(4,1.95)
+\psline(3,2.95)(4,0.50)
+
+\psline(3,2.85)(4,3.00)
+\psline(3,2.85)(4,2.65)
+\psline(3,2.85)(4,2.30)
+\psline(3,2.85)(4,1.95)
+\psline(3,2.85)(4,0.50)
+
+\psline(3,2.75)(4,3.00)
+\psline(3,2.75)(4,2.65)
+\psline(3,2.75)(4,2.30)
+\psline(3,2.75)(4,1.95)
+\psline(3,2.75)(4,0.50)
+
+\psline(3,2.65)(4,3.00)
+\psline(3,2.65)(4,2.65)
+\psline(3,2.65)(4,2.30)
+\psline(3,2.65)(4,1.95)
+\psline(3,2.65)(4,0.50)
+
+\psline(3,2.55)(4,3.00)
+\psline(3,2.55)(4,2.65)
+\psline(3,2.55)(4,2.30)
+\psline(3,2.55)(4,1.95)
+\psline(3,2.55)(4,0.50)
+
+\psline(3,0.55)(4,3.00)
+\psline(3,0.55)(4,2.65)
+\psline(3,0.55)(4,2.30)
+\psline(3,0.55)(4,1.95)
+\psline(3,0.55)(4,0.50)
+
+% flatten layer
+\psset{fillstyle=solid,fillcolor=lightblue,linewidth=1pt}
+\pscircle(3,2.95){4pt}
+\pscircle(3,2.85){4pt}
+\pscircle(3,2.75){4pt}
+\pscircle(3,2.65){4pt}
+\pscircle(3,2.55){4pt}
+\rput[c](3,2.29){\LARGE$\vdots$}
+\rput[c](3,2.18){\LARGE$\vdots$}
+\rput[c](3,2.07){\LARGE$\vdots$}
+\rput[c](3,1.96){\LARGE$\vdots$}
+\rput[c](3,1.85){\LARGE$\vdots$}
+\rput[c](3,1.74){\LARGE$\vdots$}
+\rput[c](3,1.63){\LARGE$\vdots$}
+\rput[c](3,1.52){\LARGE$\vdots$}
+\rput[c](3,1.41){\LARGE$\vdots$}
+\rput[c](3,1.30){\LARGE$\vdots$}
+\rput[c](3,1.19){\LARGE$\vdots$}
+\rput[c](3,1.08){\LARGE$\vdots$}
+\rput[c](3,0.97){\LARGE$\vdots$}
+\rput[c](3,0.86){\LARGE$\vdots$}
+\pscircle(3,0.55){4pt}
+
+% lines from hidden layer to output layer
+\psset{linewidth=0.5pt}
+\psline(4,3.00)(5,2.30)
+\psline(4,3.00)(5,1.95)
+\psline(4,3.00)(5,1.20)
+
+\psline(4,2.65)(5,2.30)
+\psline(4,2.65)(5,1.95)
+\psline(4,2.65)(5,1.20)
+
+\psline(4,2.30)(5,2.30)
+\psline(4,2.30)(5,1.95)
+\psline(4,2.30)(5,1.20)
+
+\psline(4,1.95)(5,2.30)
+\psline(4,1.95)(5,1.95)
+\psline(4,1.95)(5,1.20)
+
+\psline(4,0.5)(5,2.30)
+\psline(4,0.5)(5,1.95)
+\psline(4,0.5)(5,1.20)
+
+% hidden layer
+\psset{fillstyle=solid,fillcolor=lightblue,linewidth=1.5pt}
+\pscircle(4,3.00){10pt}
+\pscircle(4,2.65){10pt}
+\pscircle(4,2.30){10pt}
+\pscircle(4,1.95){10pt}
+\rput[c](4,1.63){\LARGE$\vdots$}
+\rput[c](4,1.52){\LARGE$\vdots$}
+\rput[c](4,1.41){\LARGE$\vdots$}
+\rput[c](4,1.30){\LARGE$\vdots$}
+\rput[c](4,1.19){\LARGE$\vdots$}
+\rput[c](4,1.08){\LARGE$\vdots$}
+\rput[c](4,0.97){\LARGE$\vdots$}
+\rput[c](4,0.86){\LARGE$\vdots$}
+\pscircle(4,0.50){10pt}
+
+% output layer
+\pscircle(5,2.30){10pt}
+\pscircle(5,1.95){10pt}
+\rput[c](5,1.60){\LARGE$\vdots$}
+\pscircle(5,1.20){10pt}
+
+\psset{linewidth=1pt}
+
+\psline{->}(1.0,1.75)(1.2,1.75)
+
+\rput[r](0.95,1.75){\small Image}
+
+\psline{->}(5.2,2.30)(5.5,2.30)
+\psline{->}(5.2,1.95)(5.5,1.95)
+\psline{->}(5.2,1.20)(5.5,1.20)
+
+\rput[l](5.54,2.30){\small Probability of 0}
+\rput[l](5.54,1.95){\small Probability of 1}
+\rput[l](5.54,1.20){\small Probability of 9}
+
+\psbrace(1.05,0)(2.45,0){}
+\psbrace(2.55,0)(3.45,0){}
+\psbrace(3.55,0)(4.45,0){}
+\psbrace(4.55,0)(5.45,0){}
+
+\rput(1.7,-0.5){\centering \parbox[t]{1.6in}{\centering 2D Convolution,\\Batch Normalization,\\ and Max Pooling Layers}}
+\rput(3.0,-0.5){\centering \parbox[t]{1in}{\centering Flattening \\Layer}}
+\rput(4.0,-0.5){\centering \parbox[t]{1in}{\centering Hidden \\Layer}}
+\rput(5.0,-0.5){\centering \parbox[t]{1in}{\centering Output \\Layer}}
+
+\end{pspicture}
+\end{center}
+\newpage
+
+
+
+%
+% ---- CNN 3 ----
+%
+\begin{center}
+\psset{unit=1in}
+\begin{pspicture}(0,0)(7,5)
+
+\psset{linewidth=0.5pt}
+
+% line between conv2d and max pooling layers
+\psline(1.3,1.75)(3.1,1.75)
+
+% input layer
+\psframe[linewidth=1.5pt,fillstyle=solid,fillcolor=lightblue](1.275,0.50)(1.425,3.00)
+
+% conv2d layer
+\psframe[linewidth=1.5pt,fillstyle=solid,fillcolor=lightblue](1.525,0.50)(1.775,3.00)
+\psline(1.575,0.50)(1.575,3.00)
+\psline(1.625,0.50)(1.625,3.00)
+\psline(1.675,0.50)(1.675,3.00)
+\psline(1.725,0.50)(1.725,3.00)
+
+% max pooling layer
+\psframe[linewidth=1.5pt,fillstyle=solid,fillcolor=lightblue](1.875,0.65)(2.125,2.85)
+
+% 2nd conv 2d layer
+\psframe[linewidth=1.5pt,fillstyle=solid,fillcolor=lightblue](2.375,0.80)(2.625,2.70)
+\psline(2.425,0.80)(2.425,2.70)
+\psline(2.475,0.80)(2.475,2.70)
+\psline(2.525,0.80)(2.525,2.70)
+\psline(2.575,0.80)(2.575,2.70)
+
+% 3rd conv 2d layer
+\psframe[linewidth=1.5pt,fillstyle=solid,fillcolor=lightblue](2.725,0.95)(2.975,2.55)
+\psline(2.775,0.95)(2.775,2.55)
+\psline(2.825,0.95)(2.825,2.55)
+\psline(2.875,0.95)(2.875,2.55)
+\psline(2.925,0.95)(2.925,2.55)
+
+% 2nd maxpooling layer
+\psframe[linewidth=1.5pt,fillstyle=solid,fillcolor=lightblue](3.075,1.10)(3.325,2.40)
+
+% lines from maxpooling layer to flatten layer
+\psline[linearc=0.2](3.325,1.75)(3.6125,1.75)(3.6125,2.85)(3.9,2.85)
+\psline[linearc=0.2](3.325,1.75)(3.6125,1.75)(3.6125,2.75)(3.9,2.75)
+\psline[linearc=0.2](3.325,1.75)(3.6125,1.75)(3.6125,2.65)(3.9,2.65)
+\psline[linearc=0.2](3.325,1.75)(3.6125,1.75)(3.6125,2.55)(3.9,2.55)
+\psline[linearc=0.2](3.325,1.75)(3.6125,1.75)(3.6125,0.65)(3.9,0.65)
+
+
+% lines from flatten to dropout layers
+\psline(3.9,2.85)(4.35,2.85)
+\psline(3.9,2.75)(4.35,2.75)
+\psline(3.9,2.65)(4.35,2.65)
+\psline(3.9,2.55)(4.35,2.55)
+\psline(3.9,0.65)(4.35,0.65)
+
+% flatten layer
+\psset{fillstyle=solid,fillcolor=lightblue,linewidth=1pt}
+\pscircle(3.9,2.85){4pt}
+\pscircle(3.9,2.75){4pt}
+\pscircle(3.9,2.65){4pt}
+\pscircle(3.9,2.55){4pt}
+\rput[c](3.9,2.29){\LARGE$\vdots$}
+\rput[c](3.9,2.18){\LARGE$\vdots$}
+\rput[c](3.9,2.07){\LARGE$\vdots$}
+\rput[c](3.9,1.96){\LARGE$\vdots$}
+\rput[c](3.9,1.85){\LARGE$\vdots$}
+\rput[c](3.9,1.74){\LARGE$\vdots$}
+\rput[c](3.9,1.63){\LARGE$\vdots$}
+\rput[c](3.9,1.52){\LARGE$\vdots$}
+\rput[c](3.9,1.41){\LARGE$\vdots$}
+\rput[c](3.9,1.30){\LARGE$\vdots$}
+\rput[c](3.9,1.19){\LARGE$\vdots$}
+\rput[c](3.9,1.08){\LARGE$\vdots$}
+\rput[c](3.9,0.97){\LARGE$\vdots$}
+\pscircle(3.9,0.65){4pt}
+
+% lines from hidden layer to output layer
+\psset{linewidth=0.5pt}
+\psline(4.35,2.85)(5,2.30)
+\psline(4.35,2.85)(5,1.95)
+\psline(4.35,2.85)(5,1.20)
+
+\psline(4.35,2.75)(5,2.30)
+\psline(4.35,2.75)(5,1.95)
+\psline(4.35,2.75)(5,1.20)
+
+\psline(4.35,2.65)(5,2.30)
+\psline(4.35,2.65)(5,1.95)
+\psline(4.35,2.65)(5,1.20)
+
+\psline(4.35,2.55)(5,2.30)
+\psline(4.35,2.55)(5,1.95)
+\psline(4.35,2.55)(5,1.20)
+
+\psline(4.35,0.65)(5,2.30)
+\psline(4.35,0.65)(5,1.95)
+\psline(4.35,0.65)(5,1.20)
+
+
+% dropout layer
+\psframe[fillstyle=none,fillcolor=white,linearc=0.2,linestyle=dashed,linewidth=0.5pt](4.25,0.55)(4.45,2.95)
+\psset{fillstyle=solid,fillcolor=lightblue,linewidth=1pt}
+\pscircle(4.35,2.85){4pt}
+\pscircle(4.35,2.75){4pt}
+\pscircle(4.35,2.65){4pt}
+\pscircle(4.35,2.55){4pt}
+\rput[c](4.35,2.29){\LARGE$\vdots$}
+\rput[c](4.35,2.18){\LARGE$\vdots$}
+\rput[c](4.35,2.07){\LARGE$\vdots$}
+\rput[c](4.35,1.96){\LARGE$\vdots$}
+\rput[c](4.35,1.85){\LARGE$\vdots$}
+\rput[c](4.35,1.74){\LARGE$\vdots$}
+\rput[c](4.35,1.63){\LARGE$\vdots$}
+\rput[c](4.35,1.52){\LARGE$\vdots$}
+\rput[c](4.35,1.41){\LARGE$\vdots$}
+\rput[c](4.35,1.30){\LARGE$\vdots$}
+\rput[c](4.35,1.19){\LARGE$\vdots$}
+\rput[c](4.35,1.08){\LARGE$\vdots$}
+\rput[c](4.35,0.97){\LARGE$\vdots$}
+\pscircle(4.35,0.65){4pt}
+
+% output layer
+\psset{linewidth=1.5pt}
+\pscircle(5,2.30){10pt}
+\pscircle(5,1.95){10pt}
+\rput[c](5,1.60){\LARGE$\vdots$}
+\pscircle(5,1.20){10pt}
+
+\psset{linewidth=1pt}
+
+\psline{->}(1.0,1.75)(1.2,1.75)
+
+\rput[r](0.95,1.75){\small Image}
+
+\psline{->}(5.2,2.30)(5.5,2.30)
+\psline{->}(5.2,1.95)(5.5,1.95)
+\psline{->}(5.2,1.20)(5.5,1.20)
+
+\rput[l](5.54,2.30){\small Probability of 0}
+\rput[l](5.54,1.95){\small Probability of 1}
+\rput[l](5.54,1.20){\small Probability of 9}
+
+\psbrace(1.175,0)(2.225,0){}
+\psbrace(2.275,0)(3.425,0){}
+\psbrace(3.7,0)(4.555,0){}
+\psbrace(4.7,0)(5.5,0){}
+
+\rput[t](1.775,-0.35){\centering \parbox[t]{1.6in}{\centering Input,\\ 2D Convolution,\\ and Max Pooling\\ Layers}}
+\rput[t](2.850,-0.35){\centering \parbox[t]{1in}{\centering 2$\times$\ 2D Convolution,\\ and Max Pooling Layers}}
+\rput[t](4.1275,-0.35){\centering \parbox[t]{1in}{\centering Flatten and \\ Dropout \\Layers}}
+\rput[t](5.1,-0.35){\centering \parbox[t]{1in}{\centering Output \\Layer}}
+
+\end{pspicture}
+\end{center}
+
+
+
+
+
+\end{document}
+
+
