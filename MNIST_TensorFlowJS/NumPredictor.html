@@ -1,0 +1,197 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title> Number Predictor </title>
+
+    <!-- //<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>  -->
+    <script type="text/javascript" src="tf.min.js"></script> 
+    <script type="text/javascript" src="d3.v5.js"></script>
+
+    <script type="text/javascript" src="NumPredictor.js"></script>
+
+    <script>
+
+        // Add a wide left margin so that the contents seem centered
+        function CenterContents ()
+        {
+            var leftMargin = (window.innerWidth - 890) / 2;
+            if (leftMargin > 0)
+            {
+                var contents = document.getElementById ('contents');
+                contents.style.marginLeft = leftMargin + 'px';
+            }
+        }
+
+        // Also re-center the contents when the page was resized...
+        window.addEventListener ('resize', CenterContents);
+
+        //
+        // eventWindowLoaded: used to be sure that everything has been loaded first 
+        // 
+        window.addEventListener ('load', eventWindowLoaded, false);     
+        function eventWindowLoaded ()
+        {
+            CenterContents ();
+            NumPredictorApp ();
+        }
+
+    </script>
+
+    <style>
+
+        #predictedNum
+        {
+            font-family:      Helvetica, sans-serif;
+            font-size:        100px;
+            padding:          20px;
+            border-color:     #000;
+            border-width:     thin;
+            border-style:     solid;
+            border-radius:    5px;
+            text-align:       center;
+            width:            360px;
+            height:           110px;
+        }
+
+        #drawableArea
+        {
+            border-width:     thin;
+            border-color:     #000;
+            border-style:     solid;
+            border-radius:    5px;
+            cursor:           crosshair;
+        }
+
+        .button
+        {
+            font-family:      Helvetica, sans-serif;
+            font-size:        14px;
+            text-align:       center;
+            cursor:           pointer;
+            border-radius:    5px;
+            border-width:     thin;
+            border-color:     #000;
+            border-style:     solid;
+
+            background-color: #2d862d;
+            color:            #ffffff;
+
+            /* Prevent text selection */
+            -webkit-user-select: none;  /* Safari */
+            -ms-user-select:     none;  /* IE 10+ and Edge */
+            user-select:         none;  /* Standard syntax */
+        }
+
+        .button:hover
+        {
+            background-color: #194d19;
+        }
+
+        #clearBtn
+        {
+            width:            342px;
+            height:           20px;
+            padding:          4px; 
+            margin-top:       3px;
+        }
+
+        #predictBtn
+        {
+            padding:          4px;
+            margin:           10px;
+            margin-top:       150px;
+            width:            100px;
+        }
+
+        .legend
+        {
+            font-family:      Helvetica, sans-serif;
+            font-size:        12px;
+        }
+
+        #tooltip
+        {
+            position:         absolute;
+            width:            55px;
+            height:           auto;
+            padding:          5px;
+            background-color: rgba(255, 255, 255, 0.9);
+            -webkit-border-radius: 10px;
+            -moz-border-radius:    10px;
+            border-radius:         10px;
+            -webkit-box-shadow:    4px 4px 10px rgba(0, 0, 0, 0.4);
+            -moz-box-shadow:       4px 4px 10px rgba(0, 0, 0, 0.4);
+            box-shadow:            4px 4px 10px rgba(0, 0, 0, 0.4);
+            pointer-events:   none;
+        }
+
+        #tooltip.hidden
+        {
+            display: none;
+        }
+
+        #tooltip p
+        {
+            margin:           0;
+            font-family:      Helvetica, sans-serif;
+            font-size:        12px;
+            line-height:      14px;
+            text-align:       center;
+        }
+ 
+    </style>
+
+</head>
+
+
+<body> 
+
+    <div id='contents'>
+
+        <div id='numArea' style='float: left; position:relative; display:inline-block;'>
+
+            <canvas id='drawableArea' width='350' height='350'>
+                Your browser does not support the HTML 5 Canvas. 
+            </canvas>
+
+            <div id='clearBtn' class='button'>Clear</div>
+
+        </div>
+
+        <div id='predictBtn' class='button' style='float:left'>
+            Predict Number 
+            <div style='font-size:24px'> &#x2799; &#x2799; &#x2799;</div>
+        </div>
+
+        <div id='resultsArea' style='float:left'>
+
+            <div id='predictedNum'>
+            </div>
+
+            <div id='predGraph' style='padding-left:5px; border-color: #000; border-width: thin; border-style: solid; border-radius: 5px; margin-top:5px'>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id='tooltip' class='hidden'>
+        <p><span id='label'>text...</span></p>
+    </div>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
