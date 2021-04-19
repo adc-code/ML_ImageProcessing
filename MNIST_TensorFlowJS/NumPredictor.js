@@ -147,8 +147,8 @@ function NumPredictorApp ()
         // Get the bounding rectangle of target
         const rect = document.getElementById('contents').getBoundingClientRect();
 
-        pos.x = event.clientX - rect.left;//event.pageX;//clientX;
-        pos.y = event.clientY - rect.top;//event.pageY;//clientY;
+        pos.x = event.clientX - rect.left;
+        pos.y = event.clientY - rect.top;
     }
 
     //
