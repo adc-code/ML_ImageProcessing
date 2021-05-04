@@ -16,6 +16,13 @@ from sklearn.datasets import fetch_openml
 from PIL import Image
 
 
+# Draw grid used to draw a grid around the numbers
+DrawGrid  = False #True
+
+ImgWidth  = 28
+ImgHeight = 28
+
+
 if len (sys.argv) != 4:
         print ('Error: incorrect number of parameters!')
         print ()
@@ -26,11 +33,12 @@ if len (sys.argv) != 4:
 HorizCount = int (sys.argv [1])
 VertCount  = int (sys.argv [2])
 
-ImgWidth  = 28
-ImgHeight = 28
 
 # Create the image
-combinedImg = Image.new ('L', (HorizCount * ImgWidth, VertCount * ImgHeight), 255)
+if DrawGrid == True:
+    combinedImg = Image.new ('L', (HorizCount * (ImgWidth + 2), VertCount * (ImgHeight + 2)), 255)
+else:
+    combinedImg = Image.new ('L', (HorizCount * ImgWidth, VertCount * ImgHeight), 255)
 
 # Uncomment for testing...
 tic = time.perf_counter()
@@ -48,7 +56,10 @@ for i in range (VertCount):
         digit = X[random.randint (0, X.shape[0])]
         digitImg = Image.fromarray (digit.reshape (28, 28))
 
-        combinedImg.paste (digitImg, (ImgWidth*j, ImgHeight*i))
+        if DrawGrid == True:
+            combinedImg.paste (digitImg, ( (ImgWidth+2)*j + 1, (ImgHeight+2)*i + 1))
+        else:
+            combinedImg.paste (digitImg, (ImgWidth*j, ImgHeight*i))
 
 # finally, write out the image
 combinedImg.save (sys.argv[3])
