@@ -105,7 +105,7 @@ for i in range (VertCount):
             combinedImg.paste (fashionImg, (ImgWidth*j, ImgHeight*i))
 
 # finally save the image
-combinedImg.save (BaseOutputName + '_' + ItemNames[SelectedItem+1]['Name'] + '.jpg')
+combinedImg.save (BaseOutputName + '_Data_' + ItemNames[SelectedItem+1]['Name'] + '.jpg')
 
 
 
