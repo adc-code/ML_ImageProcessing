@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <title> Fashion MNIST Sample Images </title>
+
+        <script type="text/javascript" src="Fashion-MNIST_Categories.js"></script>
+
+        <script type="text/javascript">
+
+            // Add a wide left margin so that the contents seem centered
+            function CenterContents ()
+            {
+                var leftMargin = (window.innerWidth - 588) / 2;
+                if (leftMargin > 0)
+                {
+                    var contents = document.getElementById ('contents');
+                    contents.style.marginLeft = leftMargin + 'px';
+                }
+            }
+
+            // Also re-center the contents when the page was resized...
+            window.addEventListener ('resize', CenterContents);
+
+            //
+            // eventWindowLoaded: used to be sure that everything has been loaded first 
+            // 
+            window.addEventListener ('load', eventWindowLoaded, false);     
+            function eventWindowLoaded ()
+            {
+                CenterContents ();
+                ImgDisplayApp ();
+            }
+
+        </script>
+
+        <style>
+
+            .label
+            {
+                font-family:                Helvetica, sans-serif;
+                font-size:                  14px;
+                padding-top:                3px;
+                padding-bottom:             3px;
+                padding-left:               10px;
+                border-bottom-left-radius:  5px;
+                border-top-left-radius:     5px;
+                margin-bottom:              4px;
+                width:                      120px;
+                background-color:           #cccccc;
+                color:                      #000;
+                cursor:                     pointer;
+            }
+
+            .labelSelected
+            {
+                background-color:           #002233;
+                color:                      #fff;
+                width:                      120px;
+            }
+
+            .imgBox
+            {
+                padding:                    8px;
+                background-color:           #002233;
+                border-bottom-right-radius: 5px;
+                border-bottom-left-radius:  5px;
+                border-top-right-radius:    5px;
+                padding-left:               10px;
+                padding-top:                10px;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id='contents'>
+
+            <div id='controls' style='float:left'>
+                <div class='label labelSelected' image='FashionMNIST_Data_T-shirt-Top.jpg'> T-shirt/top </div>
+                <div class='label' image='FashionMNIST_Data_Trouser.jpg'> Trouser </div>
+                <div class='label' image='FashionMNIST_Data_Pullover.jpg'> Pullover </div>
+                <div class='label' image='FashionMNIST_Data_Dress.jpg'> Dress </div>
+                <div class='label' image='FashionMNIST_Data_Coat.jpg'> Coat </div>
+                <div class='label' image='FashionMNIST_Data_Sandal.jpg'> Sandal </div>
+                <div class='label' image='FashionMNIST_Data_Shirt.jpg'> Shirt </div>
+                <div class='label' image='FashionMNIST_Data_Sneaker.jpg'> Sneaker </div>
+                <div class='label' image='FashionMNIST_Data_Bag.jpg'> Bag </div>
+                <div class='label' image='FashionMNIST_Data_AnkleBoot.jpg'> Ankle boot </div>                 
+            </div>
+
+            <div style='float: left'>
+                <div class='imgBox'>
+                    <img id='ImageBox' alt="Sample Dataset Images" src="FashionMNIST_Data_T-shirt-Top.jpg" id="DatasetImages" >
+                </div>
+            </div>
+
+        </div> 
+
+    </body>
+
+</html>
+
+
+
