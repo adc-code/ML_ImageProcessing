@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Fashion MNIST Confusion Matrix</title>
+
+        <script type="text/javascript" src="d3.v5.min.js"></script>
+        <script type="text/javascript" src="FashionMNIST_ConfusionMatrix.js"></script>
+
+        <style>
+            .label
+            {
+                font-family:   Helvetica, sans-serif;
+                font-size:     11px;
+                color:         #000000;
+                cursor:        default;
+            }
+
+            .title
+            {
+                font-family:   Helvetica, sans-serif;
+                font-size:     14px;
+                color:         #000000;
+            }
+
+            .image
+            {
+                background-color: #000;
+                width:            46px;
+                height:           46px;
+                padding-left:     3px;
+                padding-top:      3px;
+                float:            left;
+            }
+
+            .button
+            {
+                font-family:      Helvetica, sans-serif;
+                font-size:        11px;
+                text-align:       left;
+                cursor:           pointer;
+                border-radius:    5px;
+                border-width:     thin;
+                border-color:     #000;
+                border-style:     solid;
+
+                width:            231px;
+                padding:          2px;
+                padding-left:     10px;
+
+                background-color: #fff;
+                color:            #000;
+
+                /* Prevent text selection */
+                -webkit-user-select: none;  /* Safari */
+                -ms-user-select:     none;  /* IE 10+ and Edge */
+                user-select:         none;  /* Standard syntax */
+            }
+
+        </style>
+
+        <script type="text/javascript">
+
+            // Add a wide left margin so that the contents seem centered
+            function CenterContents ()
+            {
+                var leftMargin = (window.innerWidth - 700) / 2;
+                if (leftMargin > 0)
+                {
+                    var contents = document.getElementById ('contents');
+                    contents.style.marginLeft = leftMargin + 'px';
+                }
+            }
+
+            // Also re-center the contents when the page was resized...
+            window.addEventListener ('resize', CenterContents);
+
+            //
+            // eventWindowLoaded: used to be sure that everything has been loaded first 
+            // 
+            window.addEventListener ('load', eventWindowLoaded, false);     
+            function eventWindowLoaded ()
+            {
+                CenterContents ();
+                D3App ();
+            }
+
+        </script>
+
+    </head>
+
+    <body>
+
+        <div id='contents'>
+
+            <div id='confusionMatrixArea' style='float:left'>
+            </div>
+
+            <div style='float:left;margin-left:5px'>
+               
+                <div class='label'> Shading: </div>
+                <div class='button' id='btn_0'> Standard Confusion Matrix </div>
+                <div style='height:2px'> </div>
+                <div class='button' id='btn_1'> Adjusted to Highlight Differences </div>
+                <div style='height:8px'> </div>
+
+                <div id='images'>
+                    <div class='image' id="ImageBox_0" state=0>
+                        <img src="FashionMNIST_OutputImages/FashionMNIST_Item_nothing.png" id="Image_0">
+                    </div>
+                    <div class='image' id="ImageBox_1" state=0>
+                        <img src="FashionMNIST_OutputImages/FashionMNIST_Item_nothing.png" id="Image_1">
+                    </div>
+                    <div class='image' id="ImageBox_2" state=0>
+                        <img src="FashionMNIST_OutputImages/FashionMNIST_Item_nothing.png" id="Image_2">
+                    </div>
+                    <div class='image' id="ImageBox_3" state=0>
+                        <img src="FashionMNIST_OutputImages/FashionMNIST_Item_nothing.png" id="Image_3">
+                    </div>
+                    <div class='image' id="ImageBox_4" state=0>
+                        <img src="FashionMNIST_OutputImages/FashionMNIST_Item_nothing.png" id="Image_4">
+                    </div>
+                    <div id='imageLabel' class='label'>
+                        -
+                    </div>
+                </div>
+
+                <div style='height:5px'> </div>
+
+                <div id='predGraph'> </div>
+
+            </div>
+
+        </div>
+
+    </body>
+
+</html>
+
+
